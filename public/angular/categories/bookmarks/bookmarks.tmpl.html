@@ -1,0 +1,29 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-5">
+            <h2>{{bookmarksCtrl.getCurrentCategory().name}}</h1>
+        </div>
+    </div>
+    <div class="row" ng-repeat="bookmark in bookmarksCtrl.bookmarks | filter:{catId:bookmarksCtrl.getCurrentCategoryId()}">
+        <div class="col-md-5">
+            <a href="{{bookmark.url}}" target="_blank">
+                <span class="glyphicon glyphicon-star"></span>&nbsp;
+                {{bookmark.title}}
+            </a>
+            <div class="btn-group pull-right" role="group" aria-label="...">
+                <a href="#" ui-sref="booky.main.bookmarks.edit({bookmarkId:bookmark.id})"><span class="glyphicon glyphicon-pencil"></span></a>
+                <a href="#" ui-sref="booky.main.bookmarks({categoryId:bookmark.catId})" ng-click="bookmarksCtrl.deleteBookmark(bookmark);"><span class="glyphicon glyphicon-trash"></span></a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+            <div class="addItem">
+                <a href="#" ui-sref="booky.main.bookmarks.create"><span class="glyphicon glyphicon-plus pull-right"></span></a>
+            </div>
+        </div>
+    </div>
+    <ui-view class="row" ng-if="bookmarksCtrl.getCurrentCategory()">
+        
+    </ui-view>
+</div>

@@ -1,0 +1,8 @@
+<h1 class="logo">Booky</h1>
+<ul class="nav nav-sidebar">
+    <li ng-repeat="category in categoriesCtrl.categories" ng-class="{'active':isCurrentCategory(category.id)}">
+        <a ui-sref='booky.main.bookmarks({categoryId:category.id})'>
+            {{category.name}}
+        </a>
+    </li>
+</ul>

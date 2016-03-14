@@ -4,7 +4,7 @@ html, body {
     background-color: #f9f9f9;
     width: 100%;
     height: 100%;
-    color: #373A36;
+    color: #1f426d;
 }
 
 /* Sidebar */
@@ -75,8 +75,7 @@ html, body {
     padding-left: 24px;
 }
 
-.main .active span,
-.main .active > a {
+.main .active span, .main .active > a {
     color: #5bc0de;
 }
 
@@ -106,16 +105,16 @@ a:hover, .close:hover, a:focus {
 }
 
 .glyphicon-pencil {
-    color: orange;
+    color: #e8a727;
 }
 
 .glyphicon-trash {
-    color: red;
+    color: #f2614b;
     margin-left:10px;
 }
 
 .glyphicon-plus {
-    color: green;
+    color: #279648;
 }
 
 .editCreateForm {

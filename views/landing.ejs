@@ -6,10 +6,19 @@
         <title>Booky</title>
         <!-- AngularJS -->
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular-route.min.js"></script>
         <!-- Lodash -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.6.1/lodash.min.js"></script>
+        <!-- UI Router -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
         <!-- Angular App -->
-        <script src="booky-app.js"></script>
+        <script src="angular/booky-app.js"></script>
+        <script src="angular/categories/categories.js"></script>
+        <script src="angular/categories/bookmarks/bookmarks.js"></script>
+        <script src="angular/categories/bookmarks/edit/bookmark-edit.js"></script>
+        <script src="angular/categories/bookmarks/create/bookmark-create.js"></script>
+        <script src="angular/common/models/bookmarks-model.js"></script>
+        <script src="angular/common/models/categories-model.js"></script>
         <!-- Jquery -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.1/jquery.min.js"></script>
         <!-- Bootstrap -->
@@ -19,88 +28,12 @@
         <!-- Custom CSS -->
         <link rel="stylesheet" href="/stylesheets/main.css">
     </head>
-    <body ng-controller="MainCtrl">
+    <body>
         <div class="container-fluid">
             <div class="row">
-                <div class="col-sm-4 col-md-2 sidebar">
-                    <h1 class="logo">Booky</h1>
-                    <ul class="nav nav-sidebar">
-                        <li ng-repeat="category in categories" ng-class="{'active':isCurrentCategory(category.id)}">
-                            <a href="#" ng-click="setCurrentCategory(category)">
-                                {{category.name}}
-                            </a>
-                        </li>
-                    </ul>
+                <div class="col-sm-4 col-md-2 sidebar" ui-view="categories">
                 </div>
-                <div class="col-sm-8 col-sm-offset-4 col-md-10 col-md-offset-2 main">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <h1>{{currentCategory.name}}</h1>
-                            </div>  
-                        </div>
-                        <div class="row" ng-repeat="bookmark in bookmarks | filter:{catId:currentCategory.id}">
-                            <div class="col-md-5">
-                                <a href="{{bookmark.url}}" target="_blank" ng-class="{'editedBookmark':isSelectedBookmark(bookmark.id)}">
-                                    <span class="glyphicon glyphicon-star"></span>&nbsp;
-                                    {{bookmark.title}}
-                                </a>
-                                <div class="btn-group pull-right" role="group" aria-label="...">
-                                    <a href="#" ng-click="startEditing();setEditedBookmark(bookmark);"><span class="glyphicon glyphicon-pencil"></span></a>
-                                    <a href="#" ng-click="deleteBookmark(bookmark.id);"><span class="glyphicon glyphicon-trash"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="addItem">
-                                    <a href="#" ng-click="startCreating()"><span class="glyphicon glyphicon-plus pull-right"></span></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row" ng-if="isCreating">
-                            <div class="col-md-5 editCreateForm">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;Creating - New Bookmark</div>
-                                    <div class="panel-body">
-                                        <form ng-submit="createBookmark(newBookmark)">
-                                            <div class="form-group">
-                                                <label for="newBookmarkTitle">Title</label>
-                                                <input type="text" class="form-control" id="newBookmarkTitle" ng-model="newBookmark.title">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="newBookmarkURL">URL</label>
-                                                <input type="text" class="form-control" id="newBookmarkURL" ng-model="newBookmark.url">
-                                            </div>
-                                            <button type="submit" class="btn btn-default">Submit</button>
-                                            <button class="btn btn-default pull-right" ng-click="cancel()">Cancel</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row" ng-if="isEditing">
-                            <div class="col-md-5 editCreateForm">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading"><span class="glyphicon glyphicon-pencil"></span>&nbsp;&nbsp;Editing - {{originBookmark.title}}</div>
-                                    <div class="panel-body">
-                                        <form ng-submit="editBookmark(editedBookmark)">
-                                            <div class="form-group">
-                                                <label for="editedBookmarkTitle">Title</label>
-                                                <input type="text" class="form-control" id="editedBookmarkTitle" ng-model="editedBookmark.title">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="editedBookmarkURL">URL</label>
-                                                <input type="text" class="form-control" id="editedBookmarkURL" ng-model="editedBookmark.url">
-                                            </div>
-                                            <button type="submit" class="btn btn-default">Submit</button>
-                                            <button class="btn btn-default pull-right" ng-click="cancel()">Cancel</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="col-sm-8 col-sm-offset-4 col-md-10 col-md-offset-2 main" ui-view="bookmarks">
                 </div>
             </div>
         </div>
